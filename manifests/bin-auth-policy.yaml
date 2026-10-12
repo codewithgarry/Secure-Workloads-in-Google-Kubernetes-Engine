@@ -1,0 +1,13 @@
+# Binary Authorization policy: deny every image except the allow-listed patterns.
+# Export the live policy first, then merge these values into it:
+#   gcloud container binauthz policy export > bin-auth-policy.yaml
+admissionWhitelistPatterns:
+  - namePattern: docker.io/library/wordpress:latest
+  - namePattern: us.gcr.io/k8s-artifacts-prod/ingress-nginx/*
+  - namePattern: gcr.io/cloudsql-docker/*
+  - namePattern: quay.io/jetstack/*
+defaultAdmissionRule:
+  enforcementMode: ENFORCED_BLOCK_AND_AUDIT_LOG
+  evaluationMode: ALWAYS_DENY
+globalPolicyEvaluationMode: ENABLE
+name: projects/<PROJECT_ID>/policy

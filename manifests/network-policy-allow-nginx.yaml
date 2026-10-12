@@ -1,0 +1,13 @@
+# Allows inbound internet traffic to the NGINX ingress controller pods.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-nginx-access-to-internet
+spec:
+  podSelector:
+    matchLabels:
+      app: nginx-ingress
+  policyTypes:
+    - Ingress
+  ingress:
+    - {}
